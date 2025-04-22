@@ -68,3 +68,32 @@ jobs:
                 source: dir:.
                 format: syft-json
                 output-file: sbom.syft.json
+
+  scan-sbom:
+    name: Grype Scan on SBOM
+    needs: generate-sbom
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download SBOM artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: sbom
+          path: ./sbom
+
+      - name: Scan SBOM with Grype
+        uses: anchore/scan-action@v3
+        with:
+          sbom: ./sbom/sbom.syft.json
+          output-format: table
+          fail-build: false
+          output-file: grype-results.txt
+
+      - name: Upload Grype scan results
+        uses: actions/upload-artifact@v4
+        with:
+          name: grype-scan-report
+          path: grype-results.txt
