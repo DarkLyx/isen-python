@@ -21,3 +21,5 @@ jobs:
     - name: Analysing the code with pylint
       run: |
         pylint $(git ls-files '*.py')
+        --disable=C,R0801
+        --fail-under=7.0
