@@ -32,15 +32,13 @@ class HomeViewTests(TestCase):
         self.assertNotContains(response, "Produit C")
 
     def test_sort_by_price_ascending(self):
-        response = self.client.get(reverse('home'), {'order_by': 'asc'})
+        response = self.client.get(reverse('home'), {'sort_price': 'asc'})
         products = list(response.context['object_list'])
-        self.assertEqual(products[0].price, 10.0)
-        self.assertEqual(products[1].price, 20.0)
-        self.assertEqual(products[2].price, 30.0)
+        prices = [float(product.price) for product in products]
+        self.assertEqual(prices, [10.0, 20.0, 30.0])
 
     def test_sort_by_price_descending(self):
-        response = self.client.get(reverse('home'), {'order_by': 'desc'})
+        response = self.client.get(reverse('home'), {'sort_price': 'desc'})
         products = list(response.context['object_list'])
-        self.assertEqual(products[0].price, 30.0)
-        self.assertEqual(products[1].price, 20.0)
-        self.assertEqual(products[2].price, 10.0)
+        prices = [float(product.price) for product in products]
+        self.assertEqual(prices, [30.0, 20.0, 10.0])
