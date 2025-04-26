@@ -1,4 +1,4 @@
-/*describe('Create and connect to an account', () => {
+describe('Create and connect to an account', () => {
   it('Visits the Oc commerce site', () => {
     cy.visit('/home')
 
@@ -24,7 +24,7 @@
     cy.contains('FAVOURITE')
   })
 })
-*/
+
 
 describe('Put item in favourite', () => {
   it('Connect to OC commerce and put in favourite', () => {
