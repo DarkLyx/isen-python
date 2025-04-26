@@ -1,4 +1,4 @@
-/*describe('Create and connect to an account', () => {
+describe('Create and connect to an account', () => {
   it('Visits the Oc commerce site', () => {
     cy.visit('/home')
 
@@ -81,8 +81,7 @@ describe('Filter the products', () => {
   })
 })
 
-*/
-describe('ascendent sorting', () => {
+describe('ascendant, descendant sorting', () => {
   it('we will verify if the products are sorted', () => {
 
     cy.visit('/home')
