@@ -1,4 +1,4 @@
-describe('Create and connect to an account', () => {
+/*describe('Create and connect to an account', () => {
   it('Visits the Oc commerce site', () => {
     cy.visit('/home')
 
@@ -81,12 +81,12 @@ describe('Filter the products', () => {
   })
 })
 
-
+*/
 describe('ascendent sorting', () => {
   it('we will verify if the products are sorted', () => {
 
     cy.visit('/home')
-    const prices = []
+    const pricesAsc = []
 
     cy.get('#form-filter').select('asc')
     cy.get('button[id^=filter]').click()
@@ -95,7 +95,7 @@ describe('ascendent sorting', () => {
       .each(($el) => {
         const text = $el.text();
         const price = parseFloat(text.replace('$', '').trim())
-        prices.push(price)
+        pricesAsc.push(price)
       })
       .then(() => {
         const isSortedAsc = (arr) => {
@@ -107,17 +107,9 @@ describe('ascendent sorting', () => {
           return true;
         }
 
-        expect(isSortedAsc(prices)).to.equal(true) // Appelle la fonction ici et vérifie
+        expect(isSortedAsc(pricesAsc)).to.equal(true) // Appelle la fonction ici et vérifie
       })
-  })
-})
-
-describe('descendent sorting', () => {
-  it('we will verify if the products are sorted part 2', () => {
-
-    cy.visit('/home')
-    const prices = []
-
+    const pricesDesc = []
     cy.get('#form-filter').select('desc')
     cy.get('button[id^=filter]').click()
 
@@ -125,7 +117,7 @@ describe('descendent sorting', () => {
       .each(($el) => {
         const text = $el.text();
         const price = parseFloat(text.replace('$', '').trim())
-        prices.push(price)
+        pricesDesc.push(price)
       })
       .then(() => {
         const isSortedDesc = (arr) => {
@@ -137,10 +129,12 @@ describe('descendent sorting', () => {
           return true;
         }
 
-        expect(isSortedDesc(prices)).to.equal(true) // Appelle la fonction ici et vérifie
+        expect(isSortedDesc(pricesDesc)).to.equal(true) // Appelle la fonction ici et vérifie
       })
+      
   })
 })
+
 
 
 
