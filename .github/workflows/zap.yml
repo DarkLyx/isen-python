@@ -3,7 +3,7 @@ name: ZAP Baseline DAST Scan
 on:
   push:
     branches:
-      - feature/dast  # uniquement sur la branche par défaut
+      - main  
 
 jobs:
   zap_scan:
@@ -30,10 +30,9 @@ jobs:
         uses: zaproxy/action-baseline@v0.14.0
         with:
           target: 'http://localhost:8080'
-          time: '1'  # Scan limité à 1 minute
           format: 'json'
           output: 'zap_report.json'
-          fail_action: false  # Ne pas échouer le job même s'il y a des alertes
+          fail_action: false 
 
       - name: Upload ZAP scan report
         uses: actions/upload-artifact@v4
