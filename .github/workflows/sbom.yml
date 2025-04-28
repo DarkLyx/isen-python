@@ -15,7 +15,7 @@ jobs:
         - name: Generate SBOM from project directory
           uses: anchore/sbom-action@v0
           with:
-            source: dir:.
+            path: .
             format: syft-json
             output-file: sbom.syft.json
 
