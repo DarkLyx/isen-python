@@ -3,7 +3,7 @@ name: ZAP Baseline DAST Scan
 on:
   push:
     branches:
-      - main  # uniquement sur la branche par défaut
+      - feature/dast  # uniquement sur la branche par défaut
 
 jobs:
   zap_scan:
