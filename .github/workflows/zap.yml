@@ -1,0 +1,47 @@
+name: ZAP Baseline DAST Scan
+
+on:
+  push:
+    branches:
+      - main  
+
+jobs:
+  zap_scan:
+    name: ZAP Baseline Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        run: docker build -t myapp:test .
+
+      - name: Run application container
+        run: |
+          docker run -d --name myapp-test -p 8080:8080 myapp:test
+          # attendre quelques secondes que l'appli démarre
+          sleep 10
+
+      - name: Run ZAP Baseline Scan
+        uses: zaproxy/action-baseline@v0.14.0
+        with:
+          target: 'http://localhost:8080'
+          format: 'json'
+          output: 'zap_report.json'
+          fail_action: false 
+
+      - name: Upload ZAP scan report
+        uses: actions/upload-artifact@v4
+        with:
+          name: zap-report
+          path: zap_report.json
+
+      - name: Stop and remove application container
+        if: always()
+        run: |
+          docker stop myapp-test
+          docker rm myapp-test
